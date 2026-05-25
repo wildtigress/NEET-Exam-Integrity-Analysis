@@ -1,9 +1,6 @@
 """
 NEET Paper Leak Forensic Analysis — Python Data Pipeline
-=========================================================
-Uses: pandas, numpy, scipy, matplotlib, seaborn, sqlite3, requests
-Data: Real verified data from NTA, NCRB, CBI, Supreme Court records
-Author: Data Analyst Portfolio Project
+
 """
 
 import pandas as pd
