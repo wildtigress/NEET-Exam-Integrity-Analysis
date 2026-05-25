@@ -1,0 +1,11 @@
+year,event_title,severity,modus_operandi,arrests,states_implicated,modus_era
+2014,NEET answer key challenge,Minor,Answer Key Leak Allegation,0,,Era 1: Physical (proxy/bluetooth)
+2015,AIPMT full cancellation — SC order,Cancelled,Bluetooth earpiece vest + solver gang,350,UP;RJ;HR;MP;BR;GJ;MH;DL;PB;TN,Era 1: Physical (proxy/bluetooth)
+2016,NEET impersonation — multiple states,Minor,Proxy candidates with fake IDs,18,TN;KA;AP,Era 1: Physical (proxy/bluetooth)
+2017,Tamil Nadu impersonation arrests,Minor,Proxy candidates at Chennai centers,12,TN;KA,Era 1: Physical (proxy/bluetooth)
+2019,OMR tampering — Rajasthan,Minor,OMR sheet manipulation post-exam,7,RJ;UP,Era 2: Document (OMR/paper theft)
+2021,Jaipur local leak — confirmed arrests,Minor,Invigilator-candidate collusion at exam center,7,RJ,Era 2: Document (OMR/paper theft)
+2023,Localized state-level irregularities,Minor,Various localized cheating attempts,0,BR;JH;RJ,Era 3: Digital (Telegram/pipeline)
+2024,Grace mark scandal + Bihar paper theft,Major,Paper theft from NTA storage + grace mark manipulation + solver gangs,40,BR;JH;GJ;RJ;MH,Era 3: Digital (Telegram/pipeline)
+2025,Multi-exam NTA disruption year,Major,Multiple methods across different NTA exams,15,BR;UP;RJ;MH;KA,Era 3: Digital (Telegram/pipeline)
+2026,Upstream pipeline compromise — full cancellation,Cancelled,Question bank theft from NTA pipeline + Telegram distribution + coaching operator network,25,RJ;BR;MH;KL,Era 3: Digital (Telegram/pipeline)

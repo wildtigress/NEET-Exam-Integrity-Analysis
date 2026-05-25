@@ -1,0 +1,14 @@
+state,state_code,investigation_involvement_count,investigation_years,medical_colleges_total,mbbs_seats_total,neet_exam_centers_2024,risk_level
+Rajasthan,RJ,5,2015;2019;2021;2024;2026,32,4200,195,🔴 Critical
+Bihar,BR,4,2015;2023;2024;2026,22,3100,245,🔴 Critical
+Maharashtra,MH,3,2015;2024;2026,72,10200,285,🟠 High
+Gujarat,GJ,2,2024;2026,38,5200,165,🟠 High
+Jharkhand,JH,2,2023;2024,9,1100,55,🟠 High
+Karnataka,KA,2,2016;2017,68,9800,210,🟠 High
+Tamil Nadu,TN,2,2016;2017,72,10500,225,🟠 High
+Uttar Pradesh,UP,2,2015;2019,78,10800,350,🟠 High
+Delhi,DL,1,2015,12,1800,98,🟡 Moderate
+Haryana,HR,1,2015,18,2200,85,🟡 Moderate
+Kerala,KL,1,2026,38,4800,125,🟡 Moderate
+Madhya Pradesh,MP,1,2015,28,3800,135,🟡 Moderate
+Punjab,PB,1,2015,18,2400,68,🟡 Moderate

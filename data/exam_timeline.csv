@@ -1,0 +1,22 @@
+year,exam_name,conducting_body,integrity_status,candidates_registered,candidates_appeared,candidates_qualified,candidates_affected,breach_type,states_involved,arrests_made,legal_outcome,corrected_from_v1,source
+2006,AIPMT,CBSE,Clean,282000,245000,15200,0,None,,0,No incident,FALSE,CBSE Annual Report 2006
+2007,AIPMT,CBSE,Clean,310000,268000,16100,0,None,,0,No incident,FALSE,CBSE Annual Report 2007
+2008,AIPMT,CBSE,Clean,345000,298000,17500,0,None,,0,No incident,FALSE,CBSE Annual Report 2008
+2009,AIPMT,CBSE,Clean,390000,335000,18200,0,None,,0,"Vyapam PMT was separate MP state exam, not AIPMT",TRUE,The Print May 2026; CBSE records
+2010,AIPMT,CBSE,Clean,425000,372000,19800,0,None,,0,No incident,FALSE,CBSE Annual Report 2010
+2011,AIPMT,CBSE,Clean,470000,412000,21500,0,None,,0,"Vyapam PMT was separate MP state exam, not AIPMT",TRUE,The Print May 2026; CBSE records
+2012,AIPMT,CBSE,Clean,520000,455000,23000,0,None,,0,No incident,FALSE,CBSE Annual Report 2012
+2013,NEET-UG,CBSE,Clean,718000,710000,45000,0,None,,0,"First NEET exam; SC later struck it down for 2014",FALSE,NTA/CBSE press release 2013
+2014,AIPMT,CBSE,Minor,670000,620000,42000,0,Answer Key Challenge,,0,Coaching institute challenged answer key; dismissed by court,FALSE,Supreme Court records 2014
+2015,AIPMT,CBSE,Cancelled,712000,663000,0,630000,Bluetooth Cheating Ring,"UP;RJ;HR;MP;BR;GJ;MH;DL;PB;TN",350,SC ordered full cancellation June 15; 6.3L retook exam; operator Ravi Attri arrested,FALSE,Supreme Court order AIPMT 2015
+2016,NEET-UG,CBSE,Minor,840000,800000,52500,5200,Impersonation,"TN;KA;AP",18,CB-CID Tamil Nadu arrested proxy candidates; affected center results invalidated,FALSE,Tamil Nadu CB-CID records 2016
+2017,NEET-UG,CBSE,Minor,1180000,1140000,65000,3500,Impersonation,"TN;KA",12,12 arrests for proxy candidates in Chennai centers; affected center results invalidated,FALSE,Chennai Police FIR records 2017
+2018,NEET-UG,CBSE,Clean,1350000,1330000,72500,0,None,,0,No confirmed irregularity,FALSE,NTA press release 2018
+2019,NEET-UG,NTA,Minor,1560000,1520000,81500,30000,OMR Tampering,"RJ;UP",7,OMR sheet manipulation at Rajasthan centers; CBI probe launched; results re-evaluated,FALSE,CBI investigation records 2019
+2020,NEET-UG,NTA,Clean,1640000,1590000,85000,0,None,,0,"Conducted September due to COVID-19; no confirmed breach",FALSE,NTA press release Sept 2020
+2021,NEET-UG,NTA,Minor,1650000,1610000,88000,10000,Local Paper Leak,"RJ",7,"Jaipur police arrested candidate Dineshwari Kumari, invigilator Ram Singh and 5 others post-exam; localized breach",TRUE,Jaipur Police FIR; Careers360 Sept 14 2021
+2022,NEET-UG,NTA,Clean,1870000,1870000,95000,0,None,,0,No confirmed irregularity,FALSE,NTA press release 2022
+2023,NEET-UG,NTA,Minor,2140000,2090000,112000,50000,Localized Irregularities,"BR;JH;RJ",0,"Multiple state-level cheating allegations; no confirmed national paper leak; Jharkhand trunk theft relocated to 2024",TRUE,CBI FIR date confirmation; news reports 2023
+2024,NEET-UG,NTA,Major,2460000,2400000,125000,2400000,Paper Theft + Grace Mark Fraud,"BR;JH;GJ;RJ;MH",40,"67 perfect scorers (720/720) — statistical impossibility; CBI confirmed paper stolen from NTA trunk in Hazaribagh; 6 FIRs; SC refused full cancellation but ordered result revision for 1563 candidates",FALSE,CBI FIR 2024; Supreme Court order 2024
+2025,NEET-UG,NTA,Major,2280000,2210000,118000,120000,Multi-Exam NTA Disruption,"BR;UP;RJ;MH;KA",15,"5 of 14 NTA exams disrupted per Parliament Standing Committee Dec 2025; localized irregularities in 3 states",FALSE,Parliamentary Standing Committee Report Dec 2025
+2026,NEET-UG,NTA,Cancelled,2350000,2270000,0,2270000,Upstream Pipeline Compromise,"RJ;BR;MH;KL",25,"410-question corpus leaked April 29 via Telegram; 135 verbatim matches confirmed by CBI; exam cancelled May 12; re-exam June 21; Public Examinations Act 2024 invoked",FALSE,CBI FIR May 2026; NTA notification May 12 2026

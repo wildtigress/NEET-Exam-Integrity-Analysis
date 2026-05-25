@@ -1,0 +1,10 @@
+year,integrity_status,candidates_affected,avg_coaching_cost_lakh,direct_cost_crore_est,total_cost_with_opportunity_crore_est,methodology_note
+2026,Cancelled,2270000,5.0,113500.0,181600.0,⚠️ ESTIMATE: coaching_cost × affected + opportunity_cost (₹3L/yr)
+2024,Major,2400000,4.5,108000.0,180000.0,⚠️ ESTIMATE: coaching_cost × affected + opportunity_cost (₹3L/yr)
+2015,Cancelled,630000,2.0,12600.0,31500.0,⚠️ ESTIMATE: coaching_cost × affected + opportunity_cost (₹3L/yr)
+2025,Major,120000,5.0,6000.0,9600.0,⚠️ ESTIMATE: coaching_cost × affected + opportunity_cost (₹3L/yr)
+2023,Minor,50000,4.0,2000.0,3500.0,⚠️ ESTIMATE: coaching_cost × affected + opportunity_cost (₹3L/yr)
+2019,Minor,30000,3.0,900.0,1800.0,⚠️ ESTIMATE: coaching_cost × affected + opportunity_cost (₹3L/yr)
+2021,Minor,10000,3.2,320.0,620.0,⚠️ ESTIMATE: coaching_cost × affected + opportunity_cost (₹3L/yr)
+2016,Minor,5200,2.2,114.0,270.0,⚠️ ESTIMATE: coaching_cost × affected + opportunity_cost (₹3L/yr)
+2017,Minor,3500,2.5,88.0,193.0,⚠️ ESTIMATE: coaching_cost × affected + opportunity_cost (₹3L/yr)

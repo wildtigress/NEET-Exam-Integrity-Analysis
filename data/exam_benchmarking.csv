@@ -1,0 +1,8 @@
+exam_name,country,mode,annual_candidates,confirmed_leak_incidents,cancellations,exam_centers,security_score_out_of_10,key_security_feature,conducting_body,source
+NEET-UG,India,Pen and Paper (OMR),2270000,11,2,5432,3,"Physical OMR sheets; 5432 unverified centers; single-day nationwide",NTA,NTA official data 2026
+JEE Advanced,India,CBT Online,180000,0,0,400,9,"IIT-managed; encrypted CBT; randomized questions; small verified center pool",IITs (rotating),JoSAA/IIT records
+UPSC CSE,India,Pen and Paper,1100000,0,0,1200,8,"Own secure printing facility; veteran protocol since 1858; multi-layer custody chain",UPSC,UPSC Annual Report
+JEE Main,India,CBT Online,1200000,1,0,600,7,"CBT mode since 2018; NTA conducted; multi-session with normalization",NTA,NTA records
+USMLE Step 1,USA,CBT Adaptive,25000,0,0,450,10,"Rolling adaptive testing; massive question bank rotation; Prometric verified centers year-round",NBME/FSMB,NBME official
+UCAT,UK,CBT Online,30000,0,0,200,9,"Year-round testing windows; Pearson VUE verified centers; randomized from large pool",UCAT Consortium,UCAT official
+MCAT,USA/Canada,CBT,85000,0,0,350,9,"Multiple test dates; void score option; flagging algorithms; AAMC managed",AAMC,AAMC official

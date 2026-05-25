@@ -1,0 +1,13 @@
+year,student_suicides_national_exam_related,kota_student_suicides,integrity_status,disruption_flag,prev_year_suicides,yoy_change
+2013,8068.0,,Clean,Normal,,
+2014,8125.0,,Minor,Normal,8068.0,57.0
+2015,8529.0,,Cancelled,Disrupted,8125.0,404.0
+2016,9274.0,,Minor,Normal,8529.0,745.0
+2017,9763.0,,Minor,Normal,9274.0,489.0
+2018,10136.0,,Clean,Normal,9763.0,373.0
+2019,10587.0,18.0,Minor,Normal,10136.0,451.0
+2020,11396.0,14.0,Clean,Normal,10587.0,809.0
+2021,13009.0,16.0,Minor,Normal,11396.0,1613.0
+2022,13044.0,15.0,Clean,Normal,13009.0,35.0
+2023,13508.0,26.0,Minor,Normal,13044.0,464.0
+2024,14488.0,17.0,Major,Disrupted,13508.0,980.0

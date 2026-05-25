@@ -1,0 +1,16 @@
+{
+  "endpoint": "/api/v1/neet/integrity",
+  "description": "NEET Exam Integrity Status API",
+  "data_source": "Compiled from NTA, CBI, Supreme Court records",
+  "last_updated": "2026-05-22",
+  "total_records": 21,
+  "sample_record": {
+    "year": 2024,
+    "exam_name": "NEET-UG",
+    "integrity_status": "Major",
+    "candidates_appeared": 2400000,
+    "candidates_affected": 2400000,
+    "breach_type": "Paper Theft + Grace Mark Fraud",
+    "source": "CBI FIR 2024; Supreme Court order Aug 2024"
+  }
+}

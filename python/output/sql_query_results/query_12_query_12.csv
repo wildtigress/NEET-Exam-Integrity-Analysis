@@ -1,0 +1,16 @@
+state,state_code,phc_doctor_vacancy_pct,patients_per_doctor,mbbs_seats_total,investigation_involvement_count,vulnerability_score
+Nagaland,NL,65.0,5200,100,0,0.693
+Arunachal Pradesh,AR,62.0,4900,300,0,0.663
+Meghalaya,ML,58.0,4500,200,0,0.63
+Bihar,BR,55.0,2800,3100,4,0.629
+Mizoram,MZ,45.0,3800,100,0,0.552
+Jharkhand,JH,48.0,2500,1100,2,0.548
+Manipur,MN,52.0,3200,300,0,0.535
+Chhattisgarh,CG,71.0,2200,1400,0,0.514
+Tripura,TR,48.0,3000,200,0,0.513
+Rajasthan,RJ,32.0,1600,4200,5,0.511
+Sikkim,SK,40.0,2800,200,0,0.478
+Madhya Pradesh,MP,42.0,1800,3800,1,0.399
+Assam,AS,38.0,1800,1500,0,0.39
+Haryana,HR,28.0,1500,2200,1,0.37
+Odisha,OD,35.0,1600,1500,0,0.37
