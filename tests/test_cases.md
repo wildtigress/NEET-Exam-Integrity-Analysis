@@ -53,7 +53,7 @@
 
 ### T10: Estimates Flagged
 - **Check:** Financial calculations (Query 6) explicitly say "ESTIMATE"
-- **How:** Open forensic_queries.sql, find Query 6 — check for ⚠️ flag
+- **How:** Open forensic_queries.sql, find Query 6 — check for  flag
 - **Pass/Fail:** [ ]
 
 ---
@@ -101,7 +101,7 @@
 - **Pass/Fail:** [ ]
 
 ### T18: Financial Estimates Flagged
-- **Check:** Query 6 output includes methodology_note column with ⚠️
+- **Check:** Query 6 output includes methodology_note column with 
 - **How:** Run Query 6 → check last column
 - **Pass/Fail:** [ ]
 
