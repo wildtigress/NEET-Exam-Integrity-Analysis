@@ -1,19 +1,3 @@
-"""
-NEET Forensic Dashboard — One-Command Setup & Analysis
-=======================================================
-This script is the AUTOMATION HUB of the project pipeline:
-  Google Sheets (data collection) → THIS SCRIPT → SQLite DB + Charts + Stats → Dashboard
-
-Run: python python/setup_and_analyze.py
-
-What it does:
-  1. Creates SQLite database from CSV files (no manual DB Browser import needed)
-  2. Runs all 12 forensic SQL queries and saves results
-  3. Runs 7 statistical tests with p-values
-  4. Generates 6 publication-quality charts
-  5. Exports dashboard_data.json for the HTML dashboard
-"""
-
 import pandas as pd
 import numpy as np
 import sqlite3
@@ -50,9 +34,9 @@ def step1_create_database():
     if schema_path.exists():
         with open(schema_path, 'r', encoding='utf-8') as f:
             conn.executescript(f.read())
-        print(f"  ✅ Schema loaded from: {schema_path.name}")
+        print(f"  Schema loaded from: {schema_path.name}")
     else:
-        print(f"  ❌ Schema file not found: {schema_path}")
+        print(f"  Schema file not found: {schema_path}")
         return None
 
     # Load each CSV into the database
@@ -69,9 +53,9 @@ def step1_create_database():
         if csv_path.exists():
             df = pd.read_csv(csv_path)
             df.to_sql(table_name, conn, if_exists='replace', index=False)
-            print(f"  ✅ Loaded {len(df)} rows → '{table_name}'")
+            print(f"  Loaded {len(df)} rows → '{table_name}'")
         else:
-            print(f"  ❌ CSV not found: {csv_file}")
+            print(f"  CSV not found: {csv_file}")
 
     # Re-create views (they were dropped when we replaced tables)
     views_sql = """
@@ -105,7 +89,7 @@ def step1_create_database():
     ORDER BY investigation_involvement_count DESC;
     """
     conn.executescript(views_sql)
-    print("  ✅ Views created: v_era_comparison, v_state_risk_ranking")
+    print("  Views created: v_era_comparison, v_state_risk_ranking")
 
     # Verify
     cursor = conn.cursor()
@@ -116,7 +100,7 @@ def step1_create_database():
         print(f"  {table}: {count} rows ✓")
 
     conn.close()
-    print(f"\n  📁 Database saved: {DB_PATH}")
+    print(f"\n  Database saved: {DB_PATH}")
     return str(DB_PATH)
 
 
@@ -132,7 +116,7 @@ def step2_run_forensic_queries():
     # Read the forensic queries file
     queries_path = SQL_DIR / "forensic_queries.sql"
     if not queries_path.exists():
-        print(f"  ❌ Queries file not found: {queries_path}")
+        print(f"  Queries file not found: {queries_path}")
         return
 
     with open(queries_path, 'r', encoding='utf-8') as f:
@@ -156,12 +140,12 @@ def step2_run_forensic_queries():
                 df = pd.read_sql_query(sql, conn)
                 filename = f"query_{query_num:02d}_{title[:40].replace(' ', '_').replace('—','').replace('/','_').lower()}.csv"
                 df.to_csv(SQL_OUTPUT_DIR / filename, index=False)
-                print(f"  ✅ Q{query_num}: {title} → {len(df)} rows")
+                print(f"  Q{query_num}: {title} → {len(df)} rows")
             except Exception as e:
-                print(f"  ⚠️  Q{query_num}: {title} — {str(e)[:80]}")
+                print(f"  Q{query_num}: {title} — {str(e)[:80]}")
 
     conn.close()
-    print(f"\n  📁 Query results saved: {SQL_OUTPUT_DIR}")
+    print(f"\n  Query results saved: {SQL_OUTPUT_DIR}")
 
 
 def step3_export_dashboard_json():
@@ -228,8 +212,8 @@ def step3_export_dashboard_json():
     with open(json_path, 'w') as f:
         json.dump(dashboard_data, f, indent=2, default=str)
 
-    print(f"  ✅ Dashboard JSON exported: {json_path}")
-    print(f"  📊 KPIs: {clean_count} clean exams, {total_affected:,} affected, {total_arrests} arrests")
+    print(f"  Dashboard JSON exported: {json_path}")
+    print(f"  KPIs: {clean_count} clean exams, {total_affected:,} affected, {total_arrests} arrests")
 
 
 def step4_run_analysis():
@@ -244,12 +228,12 @@ def step4_run_analysis():
         run_statistical_tests(datasets)
         generate_visualizations(datasets)
         api_integration_demo()
-        print("\n  ✅ Full analysis complete!")
+        print("\n  Full analysis complete!")
     except ImportError as e:
-        print(f"\n  ⚠️  Could not import analysis module: {e}")
+        print(f"\n  Could not import analysis module: {e}")
         print("  Make sure you have all dependencies: pip install pandas numpy scipy matplotlib seaborn")
     except Exception as e:
-        print(f"\n  ⚠️  Analysis error: {e}")
+        print(f"\n  Analysis error: {e}")
         import traceback
         traceback.print_exc()
 
@@ -277,13 +261,13 @@ def main():
 
     # Final summary
     print("\n" + "=" * 60)
-    print("  ✅ ALL DONE! Here's what was created:")
+    print("  ALL DONE! Here's what was created:")
     print("=" * 60)
-    print(f"  📁 SQLite Database:    {DB_PATH}")
-    print(f"  📁 SQL Query Results:  {SQL_OUTPUT_DIR}")
-    print(f"  📁 Charts (PNG):       {OUTPUT_DIR}")
-    print(f"  📁 Dashboard JSON:     {OUTPUT_DIR / 'dashboard_data.json'}")
-    print(f"  📁 Stats Results:      {OUTPUT_DIR / 'statistical_test_results.csv'}")
+    print(f"  SQLite Database:    {DB_PATH}")
+    print(f"  SQL Query Results:  {SQL_OUTPUT_DIR}")
+    print(f"  Charts (PNG):       {OUTPUT_DIR}")
+    print(f"  Dashboard JSON:     {OUTPUT_DIR / 'dashboard_data.json'}")
+    print(f"  Stats Results:      {OUTPUT_DIR / 'statistical_test_results.csv'}")
     print()
     print("  NEXT STEPS:")
     print("  1. Open DB Browser → File → Open Database → data/neet_forensic.db")
