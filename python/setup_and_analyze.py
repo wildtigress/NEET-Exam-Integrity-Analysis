@@ -247,7 +247,7 @@ def main():
     # Step 1: Create database
     db = step1_create_database()
     if not db:
-        print("\n❌ Database creation failed. Fix errors above and retry.")
+        print("\n Database creation failed. Fix errors above and retry.")
         return
 
     # Step 2: Run forensic queries
