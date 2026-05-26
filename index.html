@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEET Paper Leak Forensic Dashboard — 20-Year Analysis (2006–2026)</title>
+<title>NEET Paper Leak Forensic Dashboard — 21-Year Analysis (2006–2026)</title>
 <meta name="description" content="Interactive forensic dashboard analyzing 21 years of NEET/AIPMT exam integrity, paper leaks, state-wise investigation involvement, and student impact metrics.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
@@ -389,8 +389,11 @@ function animateCounter(el, target, suffix='') {
   const timer = setInterval(() => {
     current += step;
     if (current >= target) { current = target; clearInterval(timer); }
-    if (target >= 10000000) el.textContent = (current/10000000).toFixed(1) + ' Cr+' ;
-    else if (target >= 100000) el.textContent = '~' + (current/100000).toFixed(0) + ' Lakh+';
+    if (target >= 10000000) el.textContent = (current/10000000).toFixed(1) + ' Cr+';
+    else if (target >= 100000) {
+      const lakhVal = Math.round(current/100000);
+      el.textContent = '~' + lakhVal.toLocaleString('en-IN') + ' Lakhs+';
+    }
     else el.textContent = current.toLocaleString('en-IN') + suffix;
   }, 25);
 }
@@ -520,7 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCharts();
   // Animate KPIs
   animateCounter(document.getElementById('kpi1'), 10, ' / 21');
-  animateCounter(document.getElementById('kpi2'), 68);
+  animateCounter(document.getElementById('kpi2'), 6800000);
   animateCounter(document.getElementById('kpi3'), 14488);
   animateCounter(document.getElementById('kpi5'), 10);
   animateCounter(document.getElementById('kpi6'), 474);
