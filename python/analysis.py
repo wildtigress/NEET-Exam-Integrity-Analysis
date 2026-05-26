@@ -15,9 +15,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
 
-# ============================================================
-# CONFIGURATION
-# ============================================================
 BASE_DIR = Path(__file__).parent.parent
 DATA_DIR = BASE_DIR / "data"
 DB_PATH = DATA_DIR / "neet_forensic.db"
@@ -32,16 +29,14 @@ plt.rcParams.update({
     'axes.labelsize': 12,
 })
 
-# ============================================================
-# MODULE 1: DATA LOADING & CLEANING
-# ============================================================
+
 def load_and_clean_data():
     """Load all CSV files and perform data quality checks."""
     print("=" * 60)
     print("MODULE 1: DATA LOADING & CLEANING")
     print("=" * 60)
 
-    # Load CSVs
+    
     timeline = pd.read_csv(DATA_DIR / "exam_timeline.csv")
     breach = pd.read_csv(DATA_DIR / "breach_events.csv")
     impact = pd.read_csv(DATA_DIR / "student_impact.csv")
@@ -56,7 +51,7 @@ def load_and_clean_data():
         'exam_benchmarking': benchmark
     }
 
-    # Data Quality Report
+    
     print("\n--- DATA QUALITY REPORT ---")
     for name, df in datasets.items():
         total_cells = df.shape[0] * df.shape[1]
@@ -69,7 +64,7 @@ def load_and_clean_data():
         print(f"    Duplicates: {dupes}")
         print(f"    Missing by column: {df.isnull().sum()[df.isnull().sum() > 0].to_dict() or 'None'}")
 
-    # Type casting
+    
     timeline['year'] = timeline['year'].astype(int)
     timeline['candidates_affected'] = timeline['candidates_affected'].fillna(0).astype(int)
     timeline['arrests_made'] = timeline['arrests_made'].fillna(0).astype(int)
@@ -82,7 +77,7 @@ def load_and_clean_data():
         impact['kota_student_suicides'], errors='coerce'
     )
 
-    # Outlier detection (IQR method) on candidate counts
+    
     print("\n--- OUTLIER DETECTION (IQR) ---")
     for col in ['candidates_appeared', 'candidates_affected']:
         q1, q3 = timeline[col].quantile([0.25, 0.75])
@@ -97,9 +92,6 @@ def load_and_clean_data():
     return datasets
 
 
-# ============================================================
-# MODULE 2: SQLITE DATABASE CREATION
-# ============================================================
 def create_database(datasets):
     """Create SQLite database from CSV data."""
     print("\n" + "=" * 60)
@@ -111,19 +103,19 @@ def create_database(datasets):
 
     conn = sqlite3.connect(str(DB_PATH))
 
-    # Load schema
+   
     schema_path = BASE_DIR / "sql" / "create_database.sql"
     if schema_path.exists():
         with open(schema_path, 'r') as f:
             conn.executescript(f.read())
         print(f"  Schema loaded from {schema_path}")
 
-    # Insert data
+    
     for name, df in datasets.items():
         df.to_sql(name, conn, if_exists='replace', index=False)
         print(f"  Loaded {len(df)} rows into '{name}'")
 
-    # Verify
+   
     cursor = conn.cursor()
     for table in datasets.keys():
         cursor.execute(f"SELECT COUNT(*) FROM {table}")
@@ -135,9 +127,6 @@ def create_database(datasets):
     return str(DB_PATH)
 
 
-# ============================================================
-# MODULE 3: STATISTICAL TESTS (7 tests with p-values)
-# ============================================================
 def run_statistical_tests(datasets):
     """Run 7 statistical tests with p-values and interpretations."""
     print("\n" + "=" * 60)
@@ -150,13 +139,12 @@ def run_statistical_tests(datasets):
 
     results = []
 
-    # ---- TEST 1: Chi-square goodness-of-fit ----
-    # Are integrity categories evenly distributed or skewed?
+    
     print("\n--- T1: Chi-Square Goodness-of-Fit ---")
     print("  H0: Integrity statuses are equally distributed across years")
     observed = timeline['integrity_status'].value_counts()
     n = len(timeline)
-    expected = [n / 4] * 4  # Equal distribution assumption
+    expected = [n / 4] * 4  
     observed_vals = [observed.get(s, 0) for s in ['Clean', 'Minor', 'Major', 'Cancelled']]
     chi2, p_value = stats.chisquare(observed_vals, f_exp=expected)
     sig = "REJECT H0" if p_value < 0.05 else "FAIL TO REJECT H0"
@@ -165,8 +153,8 @@ def run_statistical_tests(datasets):
     print(f"  Result: {sig} — {'Statuses are NOT equally distributed' if p_value < 0.05 else 'Cannot conclude unequal distribution'}")
     results.append({'test': 'Chi-Square GoF', 'statistic': chi2, 'p_value': p_value, 'result': sig})
 
-    # ---- TEST 2: Mann-Whitney U ----
-    # Are candidate counts different in disrupted vs clean years?
+
+    
     print("\n--- T2: Mann-Whitney U Test ---")
     print("  H0: Candidate counts are same in disrupted vs clean years")
     disrupted = timeline[timeline['integrity_status'].isin(['Major', 'Cancelled'])]['candidates_appeared']
@@ -182,8 +170,7 @@ def run_statistical_tests(datasets):
     else:
         print("  Insufficient data for test")
 
-    # ---- TEST 3: Spearman Rank Correlation ----
-    # Correlation between investigation involvement and PHC vacancy
+   
     print("\n--- T3: Spearman Rank Correlation ---")
     print("  H0: No correlation between investigation involvement and PHC vacancy")
     inv_counts = states['investigation_involvement_count']
@@ -194,8 +181,7 @@ def run_statistical_tests(datasets):
     print(f"  Result: {sig} — {'Significant correlation' if p_value < 0.05 else 'No significant correlation'}")
     results.append({'test': 'Spearman Correlation', 'statistic': rho, 'p_value': p_value, 'result': sig})
 
-    # ---- TEST 4: Fisher's Exact Test ----
-    # Are high-investigation states overrepresented among high-seat states?
+   
     print("\n--- T4: Fisher's Exact Test ---")
     print("  H0: Investigation involvement is independent of medical seat count")
     median_seats = states['mbbs_seats_total'].median()
@@ -211,14 +197,13 @@ def run_statistical_tests(datasets):
     print(f"  Result: {sig}")
     results.append({'test': 'Fisher Exact', 'statistic': odds, 'p_value': p_value, 'result': sig})
 
-    # ---- TEST 5: Wilcoxon Signed-Rank ----
-    # Do female candidate percentages change in disruption years?
+    
     print("\n--- T5: Wilcoxon Signed-Rank Test ---")
     print("  H0: Female % does not differ between consecutive disrupted/clean year pairs")
     merged = timeline.merge(impact[['year', 'female_candidate_pct']], on='year', how='inner')
     merged = merged.dropna(subset=['female_candidate_pct'])
     if len(merged) >= 6:
-        # Compare year-over-year changes
+        
         merged['female_change'] = merged['female_candidate_pct'].diff()
         merged['is_disrupted'] = merged['integrity_status'].isin(['Major', 'Cancelled'])
         disrupted_changes = merged[merged['is_disrupted']]['female_change'].dropna()
@@ -233,8 +218,7 @@ def run_statistical_tests(datasets):
     else:
         print("  Insufficient data for test")
 
-    # ---- TEST 6: Linear Regression ----
-    # Is breach severity increasing over time?
+    
     print("\n--- T6: Linear Regression (Severity Trend) ---")
     print("  H0: No linear trend in breach severity over time")
     severity_map = {'Clean': 0, 'Minor': 1, 'Major': 3, 'Cancelled': 5}
@@ -246,8 +230,7 @@ def run_statistical_tests(datasets):
     print(f"  Result: {sig}")
     results.append({'test': 'Linear Regression', 'statistic': slope, 'p_value': p_value, 'result': sig})
 
-    # ---- TEST 7: Two-Proportion Z-Test ----
-    # Is CBSE era cleaner than NTA era?
+   
     print("\n--- T7: Two-Proportion Z-Test (CBSE vs NTA) ---")
     print("  H0: Clean exam proportion is same for CBSE and NTA eras")
     cbse = timeline[timeline['conducting_body'] == 'CBSE']
@@ -270,23 +253,22 @@ def run_statistical_tests(datasets):
     print(f"  Result: {sig}")
     results.append({'test': 'Two-Proportion Z', 'statistic': z_stat, 'p_value': p_value, 'result': sig})
 
-    # Summary table
+   
     print("\n" + "=" * 60)
     print("STATISTICAL TEST SUMMARY")
     print("=" * 60)
     results_df = pd.DataFrame(results)
     print(results_df.to_string(index=False))
 
-    # Save results
+    
     results_df.to_csv(OUTPUT_DIR / "statistical_test_results.csv", index=False)
     print(f"\n  Results saved to: {OUTPUT_DIR / 'statistical_test_results.csv'}")
 
     return results_df
 
 
-# ============================================================
-# MODULE 4: VISUALIZATIONS
-# ============================================================
+
+
 def generate_visualizations(datasets):
     """Generate publication-quality charts."""
     print("\n" + "=" * 60)
@@ -297,7 +279,7 @@ def generate_visualizations(datasets):
     impact = datasets['student_impact']
     states = datasets['state_infrastructure']
 
-    # Chart 1: Integrity Timeline
+   
     fig, ax = plt.subplots(figsize=(14, 5))
     colors = {'Clean': '#639922', 'Minor': '#BA7517', 'Major': '#E24B4A', 'Cancelled': '#A32D2D'}
     bar_colors = [colors[s] for s in timeline['integrity_status']]
@@ -313,7 +295,7 @@ def generate_visualizations(datasets):
     plt.close()
     print("  Saved: 01_integrity_timeline.png")
 
-    # Chart 2: Candidates Appeared vs Affected
+    
     fig, ax = plt.subplots(figsize=(14, 6))
     x = np.arange(len(timeline))
     w = 0.35
@@ -329,7 +311,7 @@ def generate_visualizations(datasets):
     plt.close()
     print("  Saved: 02_appeared_vs_affected.png")
 
-    # Chart 3: Student Suicides Trend
+   
     suicide_data = impact.dropna(subset=['student_suicides_national_exam_related'])
     fig, ax1 = plt.subplots(figsize=(12, 6))
     ax1.plot(suicide_data['year'], suicide_data['student_suicides_national_exam_related'],
@@ -354,7 +336,7 @@ def generate_visualizations(datasets):
     plt.close()
     print("  Saved: 03_suicide_trend.png")
 
-    # Chart 4: State Investigation Heatmap
+   
     inv_states = states[states['investigation_involvement_count'] > 0].sort_values(
         'investigation_involvement_count', ascending=True
     )
@@ -371,7 +353,7 @@ def generate_visualizations(datasets):
     plt.close()
     print("  Saved: 04_state_investigations.png")
 
-    # Chart 5: Correlation Heatmap
+    
     numeric_cols = timeline[['year', 'candidates_registered', 'candidates_appeared',
                              'candidates_qualified', 'candidates_affected', 'arrests_made']].copy()
     numeric_cols['severity_score'] = timeline['integrity_status'].map(
@@ -388,7 +370,7 @@ def generate_visualizations(datasets):
     plt.close()
     print("  Saved: 05_correlation_heatmap.png")
 
-    # Chart 6: CBSE vs NTA Era Box Plot
+    
     timeline_copy = timeline.copy()
     timeline_copy['era'] = timeline_copy['conducting_body']
     severity_map = {'Clean': 0, 'Minor': 1, 'Major': 3, 'Cancelled': 5}
@@ -410,16 +392,15 @@ def generate_visualizations(datasets):
     print(f"\n  All charts saved to: {OUTPUT_DIR}")
 
 
-# ============================================================
-# MODULE 5: API INTEGRATION DEMO
-# ============================================================
+
+
 def api_integration_demo():
     """Demonstrate API concepts for data collection."""
     print("\n" + "=" * 60)
     print("MODULE 5: API INTEGRATION DEMO")
     print("=" * 60)
 
-    # Demo 1: Structuring data as JSON API response
+    
     api_response = {
         "endpoint": "/api/v1/neet/integrity",
         "description": "NEET Exam Integrity Status API",
@@ -439,7 +420,7 @@ def api_integration_demo():
     print(f"\n  Sample API Response Structure:")
     print(f"  {json.dumps(api_response, indent=2)[:500]}...")
 
-    # Demo 2: Fetching data from public endpoint (NTA website structure)
+    
     print("\n  API Data Sources (public endpoints):")
     endpoints = [
         {"name": "NTA NEET Results", "url": "https://exams.nta.ac.in/NEET/", "type": "Web scraping required", "status": "Active"},
@@ -449,39 +430,39 @@ def api_integration_demo():
     for ep in endpoints:
         print(f"    {ep['name']}: {ep['url']} ({ep['type']})")
 
-    # Demo 3: SQLite as local API backend
+    
     print("\n  Local Database API Layer:")
     print("  SQLite serves as the local data store that could back a REST API")
     print("  Example: Flask/FastAPI endpoint querying neet_forensic.db")
 
-    # Save API structure
+   
     with open(OUTPUT_DIR / "api_structure.json", 'w') as f:
         json.dump(api_response, f, indent=2)
     print(f"\n  API structure saved to: {OUTPUT_DIR / 'api_structure.json'}")
 
 
-# ============================================================
-# MAIN EXECUTION
-# ============================================================
+
+
+
 def main():
     print("\n" + "=" * 60)
     print("  NEET PAPER LEAK FORENSIC ANALYSIS")
     print("  Real Data from Verified Public Sources")
     print("=" * 60)
 
-    # Phase 1: Load and clean
+    
     datasets = load_and_clean_data()
 
-    # Phase 2: Create database
+   
     db_path = create_database(datasets)
 
-    # Phase 3: Statistical tests
+   
     test_results = run_statistical_tests(datasets)
 
-    # Phase 4: Visualizations
+   
     generate_visualizations(datasets)
 
-    # Phase 5: API demo
+    
     api_integration_demo()
 
     print("\n" + "=" * 60)
