@@ -304,9 +304,8 @@ h1{font-size:clamp(24px,4vw,38px);font-weight:800;background:linear-gradient(135
 </div><!-- /container -->
 
 <script>
-// ============================================================
-// DATA — All from verified CSV files
-// ============================================================
+// Data arrays - hardcoded since this is a single-page static dashboard
+// (considered fetching from dashboard_data.json but kept it simple)
 const YEARS = [
   {y:2006,s:'clean',c:false},{y:2007,s:'clean',c:false},{y:2008,s:'clean',c:false},
   {y:2009,s:'clean',c:true,n:'Was Minor — corrected'},{y:2010,s:'clean',c:false},
@@ -376,9 +375,7 @@ const BENCHMARKS = [
   {name:'UCAT (UK)',mode:'CBT online',scale:'~30K/yr',leaks:'No systemic leak',leakClass:'bm-green',modeClass:'bm-green',sec:'Year-round, Pearson VUE verified centers'}
 ];
 
-// ============================================================
-// RENDER FUNCTIONS
-// ============================================================
+// -- Rendering --
 const grid = 'rgba(255,255,255,0.06)';
 const tick = '#666';
 
@@ -398,7 +395,7 @@ function animateCounter(el, target, suffix='') {
   }, 25);
 }
 
-// Heatmap
+// Heatmap - renders the 21-year integrity grid
 function renderHeatmap() {
   const hm = document.getElementById('heatmap');
   YEARS.forEach(d => {
@@ -413,7 +410,8 @@ function renderHeatmap() {
   });
 }
 
-// Events
+// Events timeline
+// FIXME: innerHTML concatenation isn't great for performance but works fine for 10 items
 function renderEvents() {
   const container = document.getElementById('events');
   EVENTS.forEach(e => {
@@ -447,9 +445,7 @@ function renderBenchmarks() {
   });
 }
 
-// ============================================================
-// CHARTS
-// ============================================================
+// -- Charts (Chart.js) --
 function initCharts() {
   Chart.defaults.color = tick;
   Chart.defaults.borderColor = grid;
@@ -511,9 +507,7 @@ function initCharts() {
   });
 }
 
-// ============================================================
-// INIT
-// ============================================================
+// -- Init --
 document.addEventListener('DOMContentLoaded', () => {
   renderHeatmap();
   renderEvents();
@@ -523,7 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCharts();
   // Animate KPIs
   animateCounter(document.getElementById('kpi1'), 10, ' / 21');
-  animateCounter(document.getElementById('kpi2'), 6800000);
+  animateCounter(document.getElementById('kpi2'), 5500000);
   animateCounter(document.getElementById('kpi3'), 14488);
   animateCounter(document.getElementById('kpi5'), 10);
   animateCounter(document.getElementById('kpi6'), 474);
